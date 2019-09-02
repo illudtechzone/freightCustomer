@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Signup</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+    <ion-grid margin-top>
+        <ion-row justify-content-center>
+            <ion-avatar class="profilepicsize">
+              <ion-icon name="person" class="profileIcon"></ion-icon>
+            </ion-avatar>
+        </ion-row>
+      <ion-row justify-content-center>
+        <ion-col text-center>
+          
+          <ion-item class="item-inner">
+            <ion-label color="medium" position="floating">company name </ion-label>
+            <ion-input [(ngModel)]="firstName" background="light"></ion-input>
+          </ion-item>
+          <ion-item class="item-inner">
+            <ion-label color="medium" position="floating">phone</ion-label>
+            <ion-input [(ngModel)]="phone" background="light" inputmode='numeric'></ion-input>
+          </ion-item>
+          <ion-item class="item-inner">
+            <ion-label color="medium" position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="email" background="light"></ion-input>
+          </ion-item>
+          <ion-item class="item-inner">
+            <ion-label color="medium" position="floating">Password</ion-label>
+            <ion-input [(ngModel)]="password" type="password"></ion-input>
+          </ion-item>
+          <ion-item class="item-inner">
+            <ion-label color="medium" position="floating">confirm</ion-label>
+            <ion-input [(ngModel)]="confirm" type="password" background="light"></ion-input>
+          </ion-item> 
+          <ion-button color="tertiary" (click)="signup()"  expand="block" margin-top margin-bottom>Register</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-col text-center>
+        <ion-text>Do have an Account? </ion-text>
+        <ion-text routerLink="/login" class="cursor">login</ion-text>
+      </ion-col>
+    </ion-grid>
+  </ion-content>
+  

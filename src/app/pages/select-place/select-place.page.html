@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Select Place
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item lines="none">
+    <ion-searchbar [(ngModel)]="route.fromAddress" (ionChange)="updateSearchResults('from')" placeholder="from" debounce="1000"></ion-searchbar>
+  </ion-item>
+    <ion-item lines="none">
+    <ion-searchbar [(ngModel)]="route.toAddress" (ionChange)="updateSearchResults('to')" placeholder="to" debounce="1000"></ion-searchbar>
+  </ion-item>
+  <ion-list [hidden]="autocompleteItems.length == 0">
+    <ion-card *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+      <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon> 
+          <ion-text>{{item.description}}</ion-text>
+         </ion-item>
+    </ion-card>
+  </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-button  *ngIf="route.fromPlaceId!=='' && route.toPlaceId!==''" expand="block" color="tertiary" [routerLink]="['/home']"> 
+      Request
+    </ion-button>
+  </ion-footer>
