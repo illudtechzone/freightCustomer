@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
-    // canActivate:[AuthGuardService]
+     canActivate:[AuthGuardService]
   },
   {
     path: 'login',
@@ -21,7 +21,10 @@ const routes: Routes = [
     path: 'signup',
     loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignUpPageModule)
   },
-  { path: 'select-place', loadChildren: './pages/select-place/select-place.module#SelectPlacePageModule' },
+  { path: 'select-place', loadChildren: './pages/select-place/select-place.module#SelectPlacePageModule',
+  canActivate:[AuthGuardService]
+ },
+  { path: 'quotes', loadChildren: './pages/quotes/quotes.module#QuotesPageModule',canActivate:[AuthGuardService] },
 ];
 
 @NgModule({

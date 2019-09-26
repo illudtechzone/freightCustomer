@@ -1,3 +1,4 @@
+import { CurrentUserService } from './../../services/current-user.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
@@ -16,7 +17,8 @@ export class LoginPage implements OnInit {
               private navCtrl: NavController,
               private toastController: ToastController,
               private util: UtilService,
-              private keycloakService: KeycloakService) { }
+              private keycloakService: KeycloakService,
+              private currentUserService:CurrentUserService) { }
 
   ngOnInit() {
     if (this.oauthService.hasValidAccessToken()) {
@@ -42,6 +44,8 @@ export class LoginPage implements OnInit {
           () => {
             loader.dismiss();
             console.log('slsklkslkks');
+            //writen to get and store the current user in current user for further use
+            this.currentUserService.getCurrentUser(true).then(res=>{});
             this.navCtrl.navigateForward('/home');
           },
           () => {

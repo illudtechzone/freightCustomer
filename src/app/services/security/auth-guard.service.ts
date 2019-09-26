@@ -12,6 +12,7 @@ export class AuthGuardService implements CanActivate {
               private router: Router,
               private navController: NavController) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    console.log(' acess token ',this.oauthService.hasValidAccessToken());
     if (this.oauthService.hasValidAccessToken()) {
       return true;
     }

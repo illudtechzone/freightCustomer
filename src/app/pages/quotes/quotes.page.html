@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-buttons slot="start">
+        <ion-button [routerLink]="['/home']"><ion-icon name="home" style="    font-size: 30px"></ion-icon></ion-button>
+      </ion-buttons>
+      <ion-title>
+       Goodso
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+<ion-content >
+  <app-transportation-data [freightView]="freightView" ></app-transportation-data>
+  <div text-center>
+    <ion-text color="tertiary" ><b>
+      Availabe quotes
+    </b> </ion-text>
+  </div>
+  <app-owner-response (valueChange)='showResponse($event)'></app-owner-response>
+  <app-owner-response></app-owner-response>
+  <app-owner-response></app-owner-response>
+  <app-owner-response></app-owner-response>
+</ion-content>

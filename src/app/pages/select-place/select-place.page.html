@@ -9,23 +9,80 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item lines="none">
-    <ion-searchbar [(ngModel)]="route.fromAddress" (ionChange)="updateSearchResults('from')" placeholder="from" debounce="1000"></ion-searchbar>
-  </ion-item>
+  <ion-card>
     <ion-item lines="none">
-    <ion-searchbar [(ngModel)]="route.toAddress" (ionChange)="updateSearchResults('to')" placeholder="to" debounce="1000"></ion-searchbar>
-  </ion-item>
-  <ion-list [hidden]="autocompleteItems.length == 0">
-    <ion-card *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-      <ion-item>
-          <ion-icon name="pin" slot="start"></ion-icon> 
+      <ion-searchbar [(ngModel)]="freightDTO.pickupAddress" (ionChange)="updateSearchResults('from')" placeholder="from"
+        debounce="1000"></ion-searchbar>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-searchbar [(ngModel)]="freightDTO.destinationAddress" (ionChange)="updateSearchResults('to')" placeholder="to"
+        debounce="1000"></ion-searchbar>
+    </ion-item>
+  </ion-card>
+    <ion-list [hidden]="autocompleteItems.length == 0" *ngIf="!nextPage">
+      <ion-card *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
           <ion-text>{{item.description}}</ion-text>
-         </ion-item>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+    <div *ngIf="nextPage">
+    <ion-card >
+        <ion-card-header>
+      
+        <ion-card-title text-center>More info</ion-card-title>
+      </ion-card-header>
+     <ion-item>
+        
+        <ion-label>Goods Type</ion-label>
+        <ion-select placeholder="Select One" (ionChange)="selectGoodsType($event)" [(ngModel)]="freightDTO.type"  >
+          <ion-select-option value="Electronic">Electronic</ion-select-option>
+          <ion-select-option value="Woods">Woods</ion-select-option>
+          <ion-select-option value="Home Appliances">Home Appliances</ion-select-option>
+          <ion-select-option value="Stone">Stone</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder=" Ruogh goods weight in kg ex:1000"></ion-input>
+        <ion-text slot="end">kg</ion-text>
+
+      </ion-item>
+    
+      <ion-item>
+          <ion-input type="number" placeholder=" Ruogh volume in numbers ex:1999 ">
+           
+          </ion-input>
+          <ion-text slot="end">cm<sup>2</sup></ion-text>
+        </ion-item>
+        <ion-item>
+            <ion-label>Delivery date</ion-label>
+            <ion-datetime  [(ngModel)]="freightDTO.deliveryDate" 
+                    display-format="D, MMMM YYYY" 
+                    picker-format="DD MM YYYY"
+            ></ion-datetime>
+          </ion-item>
+      <ion-item>
+          <ion-label>Fragile</ion-label>
+            <ion-checkbox color="primary" [(ngModel)]="freightDTO.fragile" ></ion-checkbox>
+        </ion-item>
     </ion-card>
-  </ion-list>
+    <ion-card>
+      <ion-item>
+        <ion-input type="number" required="true" [(ngModel)]="freightDTO.estimatedAmount"  placeholder=" Ruogh budget in numbers ex:1999 ">
+        </ion-input>
+        <ion-text slot="end"> Rs</ion-text>
+      </ion-item>
+    </ion-card>
+    </div>
 </ion-content>
 <ion-footer>
-    <ion-button  *ngIf="route.fromPlaceId!=='' && route.toPlaceId!==''" expand="block" color="tertiary" [routerLink]="['/home']"> 
-      Request
-    </ion-button>
-  </ion-footer>
+  <ion-button *ngIf="freightDTO.pickupPlaceId!==undefined && freightDTO.destinationPlaceId!==undefined && nextPage==false" expand="block" (click)="next()"
+    color="tertiary">
+    Next
+  </ion-button>
+  <ion-button *ngIf=" nextPage==true" expand="block" (click)="request()"
+    color="success">
+    Request
+  </ion-button>
+</ion-footer>

@@ -21,7 +21,7 @@ export class AppComponent {
       title: 'Logout',
       url: '/',
       icon: 'log-out'
-    }
+    },
   ];
 
   constructor(
@@ -52,6 +52,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      // set status bar to white
+      this.statusBar.backgroundColorByHexString('#e6e6e6');
       this.splashScreen.hide();
     });
   }

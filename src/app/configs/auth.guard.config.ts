@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 
 
 export const authConfig: AuthConfig = {
-    issuer: 'http://34.74.192.113:8888/auth/realms/freight',
+    issuer: 'http://dev.servers.divisosofttech.com:8888/auth/realms/freight',
     redirectUri: window.location.origin,
     clientId: 'account',
     scope: 'openid profile email',
     dummyClientSecret: '861f1081-2b85-48a9-82eb-62b38a31be64',
-    tokenEndpoint: 'http://34.74.192.113:8888/auth/realms/freight/protocol/openid-connect/token',
-    userinfoEndpoint: 'http://34.74.192.113:8888/auth/realms/freight/protocol/openid-connect/userinfo',
+    tokenEndpoint: 'http://dev.servers.divisosofttech.com:8888/auth/realms/freight/protocol/openid-connect/token',
+    userinfoEndpoint: 'http://dev.servers.divisosofttech.com:8888/auth/realms/freight/protocol/openid-connect/userinfo',
     oidc: false,
     requireHttps: false
   };

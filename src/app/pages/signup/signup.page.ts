@@ -25,7 +25,7 @@ export class SignUpPage implements OnInit {
   }
 
   constructor(private navCtrl: NavController, private util: UtilService,
-              private keycloakService: KeycloakService, ) {
+              private keycloakService: KeycloakService,) {
 
   }
   signup() {

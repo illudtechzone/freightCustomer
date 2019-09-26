@@ -1,0 +1,67 @@
+<ion-card >
+  <ion-item >
+   
+    <ion-text> 27-7-2000</ion-text>
+    <!-- <ion-card-title text-center>More info</ion-card-title> -->
+  </ion-item>
+  <div (click)="moreInfo()">
+  <ion-card-header style="border-top: 3px solid #5855b1;">
+    <ion-text color="primary"><b><I>Pickup</I></b></ion-text>
+  </ion-card-header>
+  <ion-card-content>
+
+    <ion-text>
+      <i>
+        Palakkad Junction Railway Station, Olavakode 2e43r3r, Palakkad, Kerala
+      </i>
+    </ion-text>
+
+  </ion-card-content>
+  <ion-card-header>
+          <ion-text color="primary"><b><I>Destination</I></b></ion-text>
+  </ion-card-header>
+  <ion-card-content style="border-bottom: 3px solid #5855b1;">
+    <ion-text>
+      <i>
+        Palakkad Junction Railway Station, Olavakode, Palakkad, Kerala
+      </i>
+    </ion-text>
+  </ion-card-content>
+
+</div>
+  <div  *ngIf="freightView.isMoreInfo"> 
+   <ion-item>
+
+    <ion-label>Goods Type</ion-label>
+    <ion-text slot="end" >Wood</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder=" Ruogh goods weight in kg ex:1000" readonly="!freightView.isEdit"></ion-input>
+    <ion-text slot="end">kg</ion-text>
+
+  </ion-item>
+
+  <ion-item line="full">
+    <ion-text>
+      23*34*56
+    </ion-text>
+    <ion-text slot="end">volume</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Delivery date</ion-label>
+    <ion-datetime  display-format="D, MMMM YYYY" picker-format="DD MM YYYY" value="07-27-2000"></ion-datetime>
+  </ion-item>
+  <ion-item line="full">
+    <ion-label>Fragile</ion-label>
+    <ion-icon name="checkbox-outline" color="primary"></ion-icon>
+    <ion-icon name="square-outline"></ion-icon>
+  </ion-item>
+
+  <ion-item line="full">
+    <ion-input type="number" placeholder=" Ruogh budget in numbers ex:1999 " readonly="!freightView.isEdit">
+    </ion-input>
+    <ion-text slot="end"> Rs</ion-text>
+  </ion-item> 
+</div>
+</ion-card>
+ 

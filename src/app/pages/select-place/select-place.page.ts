@@ -1,32 +1,39 @@
+import { CommandResourceService } from 'src/app/api/services';
+import { CommonService } from './../../services/common.service';
+import { FreightDTO } from './../../api/models/freight-dto';
 import { Route } from 'src/app/dtos/route';
 import { LocationService } from './../../services/location.service';
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 @Component({
   selector: 'app-select-place',
   templateUrl: './select-place.page.html',
   styleUrls: ['./select-place.page.scss'],
 })
 export class SelectPlacePage implements OnInit {
-
+  date:any={};
+  nextPage=false;
   autocompleteItems = [];
   route: Route = new Route();
+  freightDTO:FreightDTO={};
   currentSearchBar = 'from';
   requestButton=false;
   constructor(private util: UtilService,
               private toastController: ToastController,
-              private locationService: LocationService
-
+              private locationService: LocationService,
+              private commonService:CommonService,
+              private navCtrl:NavController,
+              private commandResourceService:CommandResourceService
     ) {
 
 
     }
 
 
-
   ngOnInit() {
        this.autocompleteItems = [];
+       this.commonService.getCurrentUser().then();
   }
 // auto complete//////////
 
@@ -36,11 +43,11 @@ updateSearchResults(searchBar: string) {
   this.currentSearchBar = searchBar;
   let data = '';
   if (this.currentSearchBar === 'from') {
-    data = this.route.fromAddress;
+    data = this.freightDTO.pickupAddress;
 
 
   } else {
-    data = this.route.toAddress;
+    data = this.freightDTO.destinationAddress;
 
   }
   if (data == '') {
@@ -68,16 +75,42 @@ async presentToast() {
 selectSearchResult(item: any) {
 
   console.log('selected item is ', item.description);
-
+  console.log(' placeid is ',this.freightDTO.destinationPlaceId)
   if (this.currentSearchBar === 'from') {
-    this.route.fromAddress = item.description;
-    this.route.fromPlaceId = item.place_id;
+    this.freightDTO.pickupAddress = item.description;
+    this.freightDTO.pickupPlaceId = item.place_id;
   } else {
-    this.route.toAddress = item.description;
-    this.route.toPlaceId = item.place_id;
+    this.freightDTO.destinationAddress = item.description;
+    this.freightDTO.destinationPlaceId = item.place_id;
   }
-  this.requestButton=!(this.route.fromPlaceId!=='' && this.route.toPlaceId!=='');
+  
+  console.log('current route is ',this.freightDTO.destinationPlaceId,">>>>>>",this.freightDTO.pickupPlaceId);
   console.log('current route is ', this.requestButton);
 
 }
+
+  next(){
+    this.nextPage=true;
+  }
+
+  selectGoodsType(event){
+   
+    console.log('type is >', event.detail.value);
+    console.log('type is >',this.date);
+    console.log('type freight >',this.freightDTO);
+    
+  }
+  request(){
+    this.freightDTO.deliveryDate=this.freightDTO.deliveryDate.split("T", 1)[0];
+    console.log('splited date is ', this.freightDTO.deliveryDate); 
+    this.commandResourceService.createFreightUsingPOST(this.freightDTO).subscribe((res1:any)=>{
+      console.log(' created freight equest ',res1);
+      this.navCtrl.navigateForward('/home');
+    },err=>{
+      console.log('Err creating freight equest ',err);
+      this.util.createToast('ops!server might be down try again later');
+      this.navCtrl.navigateForward('/home');
+
+    })
+  }
 }
