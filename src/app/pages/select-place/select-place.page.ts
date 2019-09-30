@@ -101,6 +101,7 @@ selectSearchResult(item: any) {
     
   }
   request(){
+    this.freightDTO.requestedStatus='REQUEST';
     this.freightDTO.deliveryDate=this.freightDTO.deliveryDate.split("T", 1)[0];
     console.log('splited date is ', this.freightDTO.deliveryDate); 
     this.commandResourceService.createFreightUsingPOST(this.freightDTO).subscribe((res1:any)=>{
