@@ -33,7 +33,12 @@ export class SelectPlacePage implements OnInit {
 
   ngOnInit() {
        this.autocompleteItems = [];
-       this.commonService.getCurrentUser().then();
+       this.commonService.getCurrentUser().then((res:any)=>{
+
+        console.log( 'got the user ',res);
+        this.freightDTO.customerId=res.id;
+  
+       });
   }
 // auto complete//////////
 

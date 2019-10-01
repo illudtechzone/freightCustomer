@@ -24,7 +24,9 @@ export class CommonService {
     this.currentUserService.getCurrentUser(false).then((res1:any)=>{
 
       console.log('got user ',res1);
-      this.queryService.searchCustomerIDPCodeUsingGET(res1.prefered_username).subscribe((res2:any)=>{
+      console.log('idp code is ',res1.email);
+
+      this.queryService.searchCustomerIDPCodeUsingGET(res1.email).subscribe((res2:any)=>{
         console.log('got userDetail ',res2);
           resolve(res2);
       },err=>{

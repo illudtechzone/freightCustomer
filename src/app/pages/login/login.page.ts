@@ -1,3 +1,4 @@
+import { CommandResourceService } from 'src/app/api/services';
 import { CurrentUserService } from './../../services/current-user.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
               private toastController: ToastController,
               private util: UtilService,
               private keycloakService: KeycloakService,
-              private currentUserService:CurrentUserService) { }
+              private currentUserService:CurrentUserService,
+              private commandResourceService:CommandResourceService) { }
 
   ngOnInit() {
     if (this.oauthService.hasValidAccessToken()) {
@@ -46,6 +48,7 @@ export class LoginPage implements OnInit {
             console.log('slsklkslkks');
             //writen to get and store the current user in current user for further use
             this.currentUserService.getCurrentUser(true).then(res=>{});
+            this.commandResourceService.createcustomerIfnotExistUsingPOST({customerIdpCode:this.email}).subscribe();
             this.navCtrl.navigateForward('/home');
           },
           () => {
