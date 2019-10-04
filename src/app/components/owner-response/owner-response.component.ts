@@ -8,16 +8,18 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 })
 export class OwnerResponseComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
-  @Input("quote") qoute:QuotationDTO;
+  @Input("quote") quote:QuotationDTO;
   constructor() { }
   response:string='pending';
   ngOnInit() {}
   accept(){
     this.response='accept';
-    this.valueChange.emit(this.response);
+    this.valueChange.emit({response:this.response,quotationId:this.quote.id});
   }
   reject(){
     this.response='reject';
+    this.valueChange.emit({response:this.response,quotationId:this.quote.id});
+
   }
 
 }

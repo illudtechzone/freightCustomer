@@ -11,10 +11,7 @@
 
 <ion-content>
   <ion-list lines="none" *ngFor="let freightView of freightViews" >
-    <div style=" 
-    border: solid;
-    border-color: #57b4ff12;
-    background-color: #7e57ff29;">
+    <div>
     <app-transportation-data [freightView]=freightView></app-transportation-data>
     <ion-card>
     <ion-item (click)="showQuotes(freightView.freight)">

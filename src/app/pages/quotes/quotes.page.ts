@@ -22,7 +22,7 @@ export class QuotesPage implements OnInit {
       console.log(res);
       this.freightView.freight=res;
       this.queryResource.findAllQuotationsUsingGET({freightId:this.freightView.freight.id}).subscribe((res2:any)=>{
-
+        console.log('the avalable qoutetions are',res2);
         this.quotes=res2;
 
       });
@@ -34,7 +34,10 @@ export class QuotesPage implements OnInit {
      this.queryResource.findAllQuotationsUsingGET({freightId:this.freightView.freight.id}).subscribe
   }
   showResponse(event){
-    console.log('xxxxxxxxx',event);
+    console.log('xxxxx',event);
+
+
+
   }
 
 
