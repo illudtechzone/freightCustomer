@@ -44,17 +44,17 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder=" Ruogh goods weight in kg ex:1000"></ion-input>
+        <ion-input type="text" placeholder=" Ruogh goods weight in kg ex:1000" [(ngModel)]="freightDTO.weight" ></ion-input>
         <ion-text slot="end">kg</ion-text>
 
       </ion-item>
     
-      <ion-item>
+      <!-- <ion-item>
           <ion-input type="number" placeholder=" Ruogh volume in numbers ex:1999 ">
            
           </ion-input>
           <ion-text slot="end">cm<sup>2</sup></ion-text>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
             <ion-label>Delivery date</ion-label>
             <ion-datetime  [(ngModel)]="freightDTO.deliveryDate" 

@@ -1,3 +1,4 @@
+import { CustomerDTO } from './../api/models/customer-dto';
 import { UtilService } from './util.service';
 import { CurrentUserService } from './current-user.service';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,8 @@ export class CommonService {
   route:Route=new Route();
   constructor(private currentUserService:CurrentUserService,
     private queryService:QueryResourceService,
-    private util:UtilService) { }
+    private util:UtilService) { };
+    private customer:any;
   setRoute(route:Route){
     this.route=route;
   }
@@ -25,7 +27,7 @@ export class CommonService {
 
       console.log('got user ',res1);
       console.log('idp code is ',res1.email);
-
+      if (this.customer == null){
       this.queryService.searchCustomerIDPCodeUsingGET(res1.email).subscribe((res2:any)=>{
         console.log('got userDetail ',res2);
           resolve(res2);
@@ -34,7 +36,10 @@ export class CommonService {
         reject();
         this.util.createToast('ops! server might be down try again later');
       });
-
+    }
+    else{
+      resolve(this.customer);
+    }
 
     });
 

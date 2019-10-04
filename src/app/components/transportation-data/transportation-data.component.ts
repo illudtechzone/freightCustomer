@@ -8,7 +8,7 @@ import { FreightDTO } from 'src/app/api/models';
   styleUrls: ['./transportation-data.component.scss'],
 })
 export class TransportationDataComponent implements OnInit {
-  @Input('freightView')freightView: any;
+  @Input('freightView')freightView:FreightView;
   constructor() { }
 
   ngOnInit() {

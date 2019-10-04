@@ -7,11 +7,13 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { Vehicle } from '../models/vehicle';
-import { FreightDTO } from '../models/freight-dto';
 import { Company } from '../models/company';
 import { Customer } from '../models/customer';
 import { Driver } from '../models/driver';
+import { VehicleLookUp } from '../models/vehicle-look-up';
+import { FreightDTO } from '../models/freight-dto';
+import { Quotation } from '../models/quotation';
+import { Vehicle } from '../models/vehicle';
 import { DataResponse } from '../models/data-response';
 
 /**
@@ -21,7 +23,15 @@ import { DataResponse } from '../models/data-response';
   providedIn: 'root',
 })
 class QueryResourceService extends __BaseService {
-  static readonly findAllvehiclesUsingGETPath = '/api/getAllvehicles';
+  static readonly findCompanyByIdUsingGETPath = '/api/findCompanybyId/{id}';
+  static readonly findCustomerByIdUsingGETPath = '/api/findCustomerbyId/{id}';
+  static readonly findDriverByIdUsingGETPath = '/api/findDriverbyId/{id}';
+  static readonly findVehicleLookUpByIdUsingGETPath = '/api/findVehiclelookupId/{id}';
+  static readonly findAllFreightsByCustomerIdUsingGETPath = '/api/freights/{customerId}';
+  static readonly findAllFreightsUsingGETPath = '/api/getAllFreight/{requestedStatus}';
+  static readonly findAllQuotationsUsingGETPath = '/api/getAllQuotations/{freightId}';
+  static readonly findAllQuotationsByCompanyIdAndFreightIdUsingGETPath = '/api/getAllQuotationsby/{companyId}/{freightId}';
+  static readonly findAllvehiclesUsingGETPath = '/api/getAllvehicles/{companyIdpCode}';
   static readonly getBookingDetailsUsingGETPath = '/api/getBookingDetails/{processInstanceId}';
   static readonly getPendingFreightsUsingGETPath = '/api/getPendingFreights';
   static readonly searchCompanyIDPCodeUsingGETPath = '/api/getcompany/{companyIdpCode}';
@@ -37,7 +47,153 @@ class QueryResourceService extends __BaseService {
   }
 
   /**
-   * @param params The `QueryResourceService.FindAllvehiclesUsingGETParams` containing the following parameters:
+   * @param id id
+   * @return OK
+   */
+  findCompanyByIdUsingGETResponse(id: number): __Observable<__StrictHttpResponse<Company>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/findCompanybyId/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Company>;
+      })
+    );
+  }
+  /**
+   * @param id id
+   * @return OK
+   */
+  findCompanyByIdUsingGET(id: number): __Observable<Company> {
+    return this.findCompanyByIdUsingGETResponse(id).pipe(
+      __map(_r => _r.body as Company)
+    );
+  }
+
+  /**
+   * @param id id
+   * @return OK
+   */
+  findCustomerByIdUsingGETResponse(id: number): __Observable<__StrictHttpResponse<Customer>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/findCustomerbyId/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Customer>;
+      })
+    );
+  }
+  /**
+   * @param id id
+   * @return OK
+   */
+  findCustomerByIdUsingGET(id: number): __Observable<Customer> {
+    return this.findCustomerByIdUsingGETResponse(id).pipe(
+      __map(_r => _r.body as Customer)
+    );
+  }
+
+  /**
+   * @param id id
+   * @return OK
+   */
+  findDriverByIdUsingGETResponse(id: number): __Observable<__StrictHttpResponse<Driver>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/findDriverbyId/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Driver>;
+      })
+    );
+  }
+  /**
+   * @param id id
+   * @return OK
+   */
+  findDriverByIdUsingGET(id: number): __Observable<Driver> {
+    return this.findDriverByIdUsingGETResponse(id).pipe(
+      __map(_r => _r.body as Driver)
+    );
+  }
+
+  /**
+   * @param id id
+   * @return OK
+   */
+  findVehicleLookUpByIdUsingGETResponse(id: number): __Observable<__StrictHttpResponse<VehicleLookUp>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/findVehiclelookupId/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<VehicleLookUp>;
+      })
+    );
+  }
+  /**
+   * @param id id
+   * @return OK
+   */
+  findVehicleLookUpByIdUsingGET(id: number): __Observable<VehicleLookUp> {
+    return this.findVehicleLookUpByIdUsingGETResponse(id).pipe(
+      __map(_r => _r.body as VehicleLookUp)
+    );
+  }
+
+  /**
+   * @param params The `QueryResourceService.FindAllFreightsByCustomerIdUsingGETParams` containing the following parameters:
+   *
+   * - `customerId`: customerId
    *
    * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
    *
@@ -45,7 +201,238 @@ class QueryResourceService extends __BaseService {
    *
    * - `page`: Page number of the requested page
    *
+   * @return OK
+   */
+  findAllFreightsByCustomerIdUsingGETResponse(params: QueryResourceService.FindAllFreightsByCustomerIdUsingGETParams): __Observable<__StrictHttpResponse<Array<FreightDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    (params.sort || []).forEach(val => {if (val != null) __params = __params.append('sort', val.toString())});
+    if (params.size != null) __params = __params.set('size', params.size.toString());
+    if (params.page != null) __params = __params.set('page', params.page.toString());
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/freights/${params.customerId}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<FreightDTO>>;
+      })
+    );
+  }
+  /**
+   * @param params The `QueryResourceService.FindAllFreightsByCustomerIdUsingGETParams` containing the following parameters:
+   *
+   * - `customerId`: customerId
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllFreightsByCustomerIdUsingGET(params: QueryResourceService.FindAllFreightsByCustomerIdUsingGETParams): __Observable<Array<FreightDTO>> {
+    return this.findAllFreightsByCustomerIdUsingGETResponse(params).pipe(
+      __map(_r => _r.body as Array<FreightDTO>)
+    );
+  }
+
+  /**
+   * @param params The `QueryResourceService.FindAllFreightsUsingGETParams` containing the following parameters:
+   *
+   * - `requestedStatus`: requestedStatus
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllFreightsUsingGETResponse(params: QueryResourceService.FindAllFreightsUsingGETParams): __Observable<__StrictHttpResponse<Array<FreightDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    (params.sort || []).forEach(val => {if (val != null) __params = __params.append('sort', val.toString())});
+    if (params.size != null) __params = __params.set('size', params.size.toString());
+    if (params.page != null) __params = __params.set('page', params.page.toString());
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/getAllFreight/${params.requestedStatus}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<FreightDTO>>;
+      })
+    );
+  }
+  /**
+   * @param params The `QueryResourceService.FindAllFreightsUsingGETParams` containing the following parameters:
+   *
+   * - `requestedStatus`: requestedStatus
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllFreightsUsingGET(params: QueryResourceService.FindAllFreightsUsingGETParams): __Observable<Array<FreightDTO>> {
+    return this.findAllFreightsUsingGETResponse(params).pipe(
+      __map(_r => _r.body as Array<FreightDTO>)
+    );
+  }
+
+  /**
+   * @param params The `QueryResourceService.FindAllQuotationsUsingGETParams` containing the following parameters:
+   *
+   * - `freightId`: freightId
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllQuotationsUsingGETResponse(params: QueryResourceService.FindAllQuotationsUsingGETParams): __Observable<__StrictHttpResponse<Array<Quotation>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    (params.sort || []).forEach(val => {if (val != null) __params = __params.append('sort', val.toString())});
+    if (params.size != null) __params = __params.set('size', params.size.toString());
+    if (params.page != null) __params = __params.set('page', params.page.toString());
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/getAllQuotations/${params.freightId}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<Quotation>>;
+      })
+    );
+  }
+  /**
+   * @param params The `QueryResourceService.FindAllQuotationsUsingGETParams` containing the following parameters:
+   *
+   * - `freightId`: freightId
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllQuotationsUsingGET(params: QueryResourceService.FindAllQuotationsUsingGETParams): __Observable<Array<Quotation>> {
+    return this.findAllQuotationsUsingGETResponse(params).pipe(
+      __map(_r => _r.body as Array<Quotation>)
+    );
+  }
+
+  /**
+   * @param params The `QueryResourceService.FindAllQuotationsByCompanyIdAndFreightIdUsingGETParams` containing the following parameters:
+   *
+   * - `freightId`: freightId
+   *
+   * - `companyId`: companyId
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllQuotationsByCompanyIdAndFreightIdUsingGETResponse(params: QueryResourceService.FindAllQuotationsByCompanyIdAndFreightIdUsingGETParams): __Observable<__StrictHttpResponse<Array<Quotation>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    (params.sort || []).forEach(val => {if (val != null) __params = __params.append('sort', val.toString())});
+    if (params.size != null) __params = __params.set('size', params.size.toString());
+    if (params.page != null) __params = __params.set('page', params.page.toString());
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/getAllQuotationsby/${params.companyId}/${params.freightId}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<Quotation>>;
+      })
+    );
+  }
+  /**
+   * @param params The `QueryResourceService.FindAllQuotationsByCompanyIdAndFreightIdUsingGETParams` containing the following parameters:
+   *
+   * - `freightId`: freightId
+   *
+   * - `companyId`: companyId
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
+   *
+   * @return OK
+   */
+  findAllQuotationsByCompanyIdAndFreightIdUsingGET(params: QueryResourceService.FindAllQuotationsByCompanyIdAndFreightIdUsingGETParams): __Observable<Array<Quotation>> {
+    return this.findAllQuotationsByCompanyIdAndFreightIdUsingGETResponse(params).pipe(
+      __map(_r => _r.body as Array<Quotation>)
+    );
+  }
+
+  /**
+   * @param params The `QueryResourceService.FindAllvehiclesUsingGETParams` containing the following parameters:
+   *
    * - `companyIdpCode`: companyIdpCode
+   *
+   * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+   *
+   * - `size`: Size of a page
+   *
+   * - `page`: Page number of the requested page
    *
    * @return OK
    */
@@ -53,13 +440,13 @@ class QueryResourceService extends __BaseService {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
+
     (params.sort || []).forEach(val => {if (val != null) __params = __params.append('sort', val.toString())});
     if (params.size != null) __params = __params.set('size', params.size.toString());
     if (params.page != null) __params = __params.set('page', params.page.toString());
-    if (params.companyIdpCode != null) __params = __params.set('companyIdpCode', params.companyIdpCode.toString());
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/api/getAllvehicles`,
+      this.rootUrl + `/api/getAllvehicles/${params.companyIdpCode}`,
       __body,
       {
         headers: __headers,
@@ -77,13 +464,13 @@ class QueryResourceService extends __BaseService {
   /**
    * @param params The `QueryResourceService.FindAllvehiclesUsingGETParams` containing the following parameters:
    *
+   * - `companyIdpCode`: companyIdpCode
+   *
    * - `sort`: Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
    *
    * - `size`: Size of a page
    *
    * - `page`: Page number of the requested page
-   *
-   * - `companyIdpCode`: companyIdpCode
    *
    * @return OK
    */
@@ -595,9 +982,14 @@ class QueryResourceService extends __BaseService {
 module QueryResourceService {
 
   /**
-   * Parameters for findAllvehiclesUsingGET
+   * Parameters for findAllFreightsByCustomerIdUsingGET
    */
-  export interface FindAllvehiclesUsingGETParams {
+  export interface FindAllFreightsByCustomerIdUsingGETParams {
+
+    /**
+     * customerId
+     */
+    customerId: number;
 
     /**
      * Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -613,11 +1005,115 @@ module QueryResourceService {
      * Page number of the requested page
      */
     page?: number;
+  }
+
+  /**
+   * Parameters for findAllFreightsUsingGET
+   */
+  export interface FindAllFreightsUsingGETParams {
+
+    /**
+     * requestedStatus
+     */
+    requestedStatus: 'REQUEST' | 'CONFIRM' | 'REJECT';
+
+    /**
+     * Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: Array<string>;
+
+    /**
+     * Size of a page
+     */
+    size?: number;
+
+    /**
+     * Page number of the requested page
+     */
+    page?: number;
+  }
+
+  /**
+   * Parameters for findAllQuotationsUsingGET
+   */
+  export interface FindAllQuotationsUsingGETParams {
+
+    /**
+     * freightId
+     */
+    freightId: number;
+
+    /**
+     * Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: Array<string>;
+
+    /**
+     * Size of a page
+     */
+    size?: number;
+
+    /**
+     * Page number of the requested page
+     */
+    page?: number;
+  }
+
+  /**
+   * Parameters for findAllQuotationsByCompanyIdAndFreightIdUsingGET
+   */
+  export interface FindAllQuotationsByCompanyIdAndFreightIdUsingGETParams {
+
+    /**
+     * freightId
+     */
+    freightId: number;
+
+    /**
+     * companyId
+     */
+    companyId: number;
+
+    /**
+     * Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: Array<string>;
+
+    /**
+     * Size of a page
+     */
+    size?: number;
+
+    /**
+     * Page number of the requested page
+     */
+    page?: number;
+  }
+
+  /**
+   * Parameters for findAllvehiclesUsingGET
+   */
+  export interface FindAllvehiclesUsingGETParams {
 
     /**
      * companyIdpCode
      */
-    companyIdpCode?: string;
+    companyIdpCode: string;
+
+    /**
+     * Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     */
+    sort?: Array<string>;
+
+    /**
+     * Size of a page
+     */
+    size?: number;
+
+    /**
+     * Page number of the requested page
+     */
+    page?: number;
   }
 
   /**

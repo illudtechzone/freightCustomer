@@ -10,26 +10,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="none">
-      <ion-text text-center></ion-text>
-    <!-- <ion-card class="card">
-      <ion-card-header>
-        <ion-item>
-          <ion-card-subtitle>27/7/2000</ion-card-subtitle>
-        </ion-item>
-        <ion-item>
-            <ion-icon name="locate" slot="start"></ion-icon>
-            <ion-input> palakkad junction </ion-input>
-        </ion-item>
-        <ion-item  class="block">
-            <ion-icon name="locate" slot="start"></ion-icon>
-            <ion-text> kottayi junction gretert ergert etrter erteter ertert ergterter</ion-text>
-        </ion-item>
-      </ion-card-header>
-    </ion-card> -->
+  <ion-list lines="none" *ngFor="let freightView of freightViews" >
+    <div style=" 
+    border: solid;
+    border-color: #57b4ff12;
+    background-color: #7e57ff29;">
     <app-transportation-data [freightView]=freightView></app-transportation-data>
     <ion-card>
-    <ion-item [routerLink]="['/quotes']">
+    <ion-item (click)="showQuotes(freightView.freight)">
       <ion-text>Quotes</ion-text>
       
       <ion-badge color="danger" slot="end">33</ion-badge>
@@ -39,6 +27,7 @@
 
     </ion-item>
   </ion-card>
+</div>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed"   [routerLink]="['/select-place']">
     <ion-fab-button color="tertiary">

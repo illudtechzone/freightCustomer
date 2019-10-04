@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { QuotationDTO } from './../../api/models/quotation-dto';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-owner-response',
@@ -7,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class OwnerResponseComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
+  @Input("quote") qoute:QuotationDTO;
   constructor() { }
   response:string='pending';
   ngOnInit() {}

@@ -14,11 +14,10 @@
   <app-transportation-data [freightView]="freightView" ></app-transportation-data>
   <div text-center>
     <ion-text color="tertiary" ><b>
-      Availabe quotes
+      Availabe Quotes
     </b> </ion-text>
   </div>
-  <app-owner-response (valueChange)='showResponse($event)'></app-owner-response>
-  <app-owner-response></app-owner-response>
-  <app-owner-response></app-owner-response>
-  <app-owner-response></app-owner-response>
+  <ion-list *ngFor="let quote of quotes" >
+  <app-owner-response (valueChange)='showResponse($event)' [quote]="quote"></app-owner-response>
+</ion-list>
 </ion-content>

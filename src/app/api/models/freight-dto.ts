@@ -1,6 +1,6 @@
 /* tslint:disable */
 export interface FreightDTO {
-  height?: number;
+  id?: number;
   acceptedStatus?: 'START' | 'COMPLETE' | 'NOT_STARTED';
   createdTime?: string;
   customerId?: number;
@@ -12,8 +12,8 @@ export interface FreightDTO {
   distance?: number;
   estimatedAmount?: number;
   fragile?: boolean;
+  height?: number;
   companyId?: number;
-  id?: number;
   length?: number;
   originalAmount?: number;
   pickupAddress?: string;
@@ -21,6 +21,7 @@ export interface FreightDTO {
   pickupPlaceId?: string;
   requestedStatus?: 'REQUEST' | 'CONFIRM' | 'REJECT';
   startTime?: string;
+  trackingId?: string;
   type?: string;
   vehicleId?: number;
   weight?: number;

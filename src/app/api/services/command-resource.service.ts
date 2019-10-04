@@ -33,6 +33,7 @@ class CommandResourceService extends __BaseService {
   static readonly createVehicleUsingPOSTPath = '/api/command/create/vehicle';
   static readonly createVehicleLookUpUsingPOSTPath = '/api/command/create/vehiclelookup';
   static readonly customerStatusUsingPOSTPath = '/api/command/customer/status/{taskId}';
+  static readonly deleteVehicleUsingDELETEPath = '/api/command/delete/vehicle/{vehicleId}/{vehicleLookupId}';
   static readonly sendQuatationUsingPOSTPath = '/api/command/sendQuatation/{taskId}';
   static readonly updateCompanyUsingPUTPath = '/api/command/update/company';
   static readonly updateCustomerUsingPUTPath = '/api/command/update/customer';
@@ -416,6 +417,49 @@ class CommandResourceService extends __BaseService {
   }
 
   /**
+   * @param params The `CommandResourceService.DeleteVehicleUsingDELETEParams` containing the following parameters:
+   *
+   * - `vehicleLookupId`: vehicleLookupId
+   *
+   * - `vehicleId`: vehicleId
+   */
+  deleteVehicleUsingDELETEResponse(params: CommandResourceService.DeleteVehicleUsingDELETEParams): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/api/command/delete/vehicle/${params.vehicleId}/${params.vehicleLookupId}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param params The `CommandResourceService.DeleteVehicleUsingDELETEParams` containing the following parameters:
+   *
+   * - `vehicleLookupId`: vehicleLookupId
+   *
+   * - `vehicleId`: vehicleId
+   */
+  deleteVehicleUsingDELETE(params: CommandResourceService.DeleteVehicleUsingDELETEParams): __Observable<null> {
+    return this.deleteVehicleUsingDELETEResponse(params).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
    * @param params The `CommandResourceService.SendQuatationUsingPOSTParams` containing the following parameters:
    *
    * - `taskId`: taskId
@@ -691,6 +735,22 @@ module CommandResourceService {
      * customerStatus
      */
     customerStatus: CustomerStatus;
+  }
+
+  /**
+   * Parameters for deleteVehicleUsingDELETE
+   */
+  export interface DeleteVehicleUsingDELETEParams {
+
+    /**
+     * vehicleLookupId
+     */
+    vehicleLookupId: number;
+
+    /**
+     * vehicleId
+     */
+    vehicleId: number;
   }
 
   /**
