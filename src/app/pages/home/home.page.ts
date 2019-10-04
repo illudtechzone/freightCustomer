@@ -3,7 +3,8 @@ import { QueryResourceService } from 'src/app/api/services';
 import { FreightDTO } from './../../api/models/freight-dto';
 import { FreightView } from './../../dtos/freight-view';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,16 @@ export class HomePage {
   freightViews:FreightView[]=[];
   constructor(private queryResourceService:QueryResourceService,
     private commonService:CommonService,
-    private router:Router) {}
+    public activatedRoute : ActivatedRoute,
+    private router:Router) {
+      this.activatedRoute.queryParams.subscribe((res)=>{
+        console.log(res);
+        let freightView=new FreightView();
+        freightView.freight=res;
+       this.freightViews.push(freightView);
+  
+        });
+  }
 
   ngOnInit() {
     this.commonService.getCurrentUser().then((res1:any)=>{

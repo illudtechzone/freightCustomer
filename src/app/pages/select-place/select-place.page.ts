@@ -6,6 +6,7 @@ import { LocationService } from './../../services/location.service';
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { ToastController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-select-place',
   templateUrl: './select-place.page.html',
@@ -24,7 +25,8 @@ export class SelectPlacePage implements OnInit {
               private locationService: LocationService,
               private commonService:CommonService,
               private navCtrl:NavController,
-              private commandResourceService:CommandResourceService
+              private commandResourceService:CommandResourceService,
+              private router:Router
     ) {
 
 
@@ -111,11 +113,14 @@ selectSearchResult(item: any) {
     console.log('splited date is ', this.freightDTO.deliveryDate); 
     this.commandResourceService.createFreightUsingPOST(this.freightDTO).subscribe((res1:any)=>{
       console.log(' created freight equest ',res1);
-      this.navCtrl.navigateForward('/home');
+      this.router.navigate(['/home'],{
+        queryParams: res1,
+        });
+  
     },err=>{
       console.log('Err creating freight equest ',err);
       this.util.createToast('ops!server might be down try again later');
-      this.navCtrl.navigateForward('/home');
+     this.navCtrl.navigateForward('/home');
 
     })
   }
