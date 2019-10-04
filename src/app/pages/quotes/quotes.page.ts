@@ -1,7 +1,7 @@
 import { QuotationDTO } from './../../api/models/quotation-dto';
 import { Component, OnInit } from '@angular/core';
 import { FreightView } from 'src/app/dtos/freight-view';
-import { QueryResourceService } from 'src/app/api/services';
+import { QueryResourceService, CommandResourceService } from 'src/app/api/services';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,7 +16,8 @@ export class QuotesPage implements OnInit {
   private quotes:QuotationDTO[]=[];
 
   constructor(private queryResource:QueryResourceService,
-    public activatedRoute : ActivatedRoute,) { 
+    public activatedRoute : ActivatedRoute,
+    private commandService:CommandResourceService) { 
 
     this.activatedRoute.queryParams.subscribe((res)=>{
       console.log(res);
@@ -35,10 +36,22 @@ export class QuotesPage implements OnInit {
   }
   showResponse(event){
     console.log('xxxxx',event);
+      this.queryResource.getTasksUsingGET({processInstanceId:this.freightView.freight.trackingId}).subscribe((res1:any)=>{
+        console.log(' got task   ',res1.data[0]);
+        console.log(' got task id  ',res1.data[0].id);
+        this.commandService.customerStatusUsingPOST({taskId:res1.data[0].id,customerStatus:{quotationId:event.quotationId,status:event.response,trackingId:this.freightView.freight.trackingId}}).subscribe(
+          (res2:any)=>{
+            console.log('sent resonse ',res2);
+          },err2=>{
+            console.log('error senting resonse ',err2);
 
-
-
-  }
+          });
+        
+      },err=>{
+        console.log('error getting tgask ',err);
+      });
+     
+    }
 
 
 

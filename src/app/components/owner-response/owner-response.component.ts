@@ -17,7 +17,7 @@ export class OwnerResponseComponent implements OnInit {
     this.valueChange.emit({response:this.response,quotationId:this.quote.id});
   }
   reject(){
-    this.response='reject';
+    this.response='return';
     this.valueChange.emit({response:this.response,quotationId:this.quote.id});
 
   }

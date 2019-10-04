@@ -1,7 +1,10 @@
 <ion-card >
   <ion-item >
    
-    <ion-text>status</ion-text>
+    <ion-text slot="start">Status:</ion-text>
+    <ion-text slot="end" *ngIf="freightView.freight.requestedStatus=='REQUEST'"><i>Requested</i></ion-text>
+    <ion-text slot="end" *ngIf="freightView.freight.requestedStatus=='CONFIRM'"><i>Confirmed</i></ion-text>
+
     <!-- <ion-card-title text-center>More info</ion-card-title> -->
   </ion-item>
   <div (click)="moreInfo()">
@@ -56,11 +59,18 @@
     <ion-icon  *ngIf="!freightView.freight.fragile" name="square-outline"></ion-icon>
   </ion-item>
 
-  <ion-item line="full">
-    <ion-input type="number" placeholder=" Ruogh budget in numbers ex:1999 " readonly="!freightView.isEdit"[(ngModel)]="freightView.freight.estimatedAmount">
-    </ion-input>
-    <ion-text slot="end"> Rs</ion-text>
-  </ion-item> 
+
 </div>
+<ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='REQUEST'" >
+    <ion-text>{{freightView.freight.estimatedAmount}} 
+  </ion-text>
+  <ion-text slot="end">INR</ion-text>
+
+  </ion-item> 
+  <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='CONFIRM'" color="success">
+    <ion-text>Trip fixed for {{freightView.freight.originalAmount}} INR
+  </ion-text>
+
+  </ion-item> 
 </ion-card>
  

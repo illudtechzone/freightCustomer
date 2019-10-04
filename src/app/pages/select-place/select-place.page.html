@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card>
+  <div class="searchBarDiv">
     <ion-item lines="none">
       <ion-searchbar [(ngModel)]="freightDTO.pickupAddress" (ionChange)="updateSearchResults('from')" placeholder="from"
         debounce="1000"></ion-searchbar>
@@ -18,7 +18,7 @@
       <ion-searchbar [(ngModel)]="freightDTO.destinationAddress" (ionChange)="updateSearchResults('to')" placeholder="to"
         debounce="1000"></ion-searchbar>
     </ion-item>
-  </ion-card>
+  </div>
     <ion-list [hidden]="autocompleteItems.length == 0" *ngIf="!nextPage">
       <ion-card *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
         <ion-item>
