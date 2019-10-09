@@ -1,10 +1,8 @@
 import { CommonService } from './../../services/common.service';
 import { QueryResourceService } from 'src/app/api/services';
-import { FreightDTO } from './../../api/models/freight-dto';
 import { FreightView } from './../../dtos/freight-view';
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,10 +17,13 @@ export class HomePage {
     public activatedRoute : ActivatedRoute,
     private router:Router) {
       this.activatedRoute.queryParams.subscribe((res)=>{
-        console.log(res);
+        console.log('got nav params ',res);
+        if(res.pickupAddress!== undefined){
+          console.log('got nav params ',res.pickupAddress);
         let freightView=new FreightView();
         freightView.freight=res;
        this.freightViews.push(freightView);
+        }
   
         });
   }

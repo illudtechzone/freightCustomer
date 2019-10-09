@@ -1,11 +1,17 @@
 <ion-card >
-  <ion-item >
+  <ion-item *ngIf="freightView.freight.requestedStatus=='REQUEST'" color="warning">
    
     <ion-text slot="start">Status:</ion-text>
-    <ion-text slot="end" *ngIf="freightView.freight.requestedStatus=='REQUEST'"><i>Requested</i></ion-text>
-    <ion-text slot="end" *ngIf="freightView.freight.requestedStatus=='CONFIRM'"><i>Confirmed</i></ion-text>
+    <ion-text slot="end" ><i>Requested</i></ion-text>
 
     <!-- <ion-card-title text-center>More info</ion-card-title> -->
+  </ion-item>
+
+  <ion-item  *ngIf="freightView.freight.requestedStatus=='CONFIRM'" color="success">
+   
+    <ion-text slot="start">Status:</ion-text>
+    <ion-text slot="end" ><i>Confirmed</i></ion-text>
+
   </ion-item>
   <div (click)="moreInfo()">
   <ion-card-header style="border-top: 3px solid #5855b1;">
@@ -67,7 +73,7 @@
   <ion-text slot="end">INR</ion-text>
 
   </ion-item> 
-  <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='CONFIRM'" color="success">
+  <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='CONFIRM'" >
     <ion-text>Trip fixed for {{freightView.freight.originalAmount}} INR
   </ion-text>
 
