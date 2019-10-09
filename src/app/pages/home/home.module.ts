@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { PipesModule } from 'src/app/pipe/pipes.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     SharedModule,
+    PipesModule,
     RouterModule.forChild([
       {
         path: '',

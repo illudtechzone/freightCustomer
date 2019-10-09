@@ -4,6 +4,7 @@ import { Platform, ToastController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { CommonService } from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent {
     private oauthService: OAuthService,
     private toastController: ToastController,
     private navCtrl: NavController,
+    private commonService: CommonService
   ) {
     this.initializeApp();
   }
@@ -38,6 +40,7 @@ export class AppComponent {
     console.log('Logout clicked');
     this.oauthService.logOut();
     this.presentToastLogout();
+    this.commonService.clearCustomer();
     this.navCtrl.navigateRoot('/login');
   }
     async presentToastLogout() {

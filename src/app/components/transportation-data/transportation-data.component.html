@@ -1,6 +1,6 @@
-<ion-card >
+<ion-card *ngIf="freightView.freight.id">
   <ion-item >
-   
+
     <ion-text slot="start">Status:</ion-text>
     <ion-text slot="end" *ngIf="freightView.freight.requestedStatus=='REQUEST'"><i>Requested</i></ion-text>
     <ion-text slot="end" *ngIf="freightView.freight.requestedStatus=='CONFIRM'"><i>Confirmed</i></ion-text>
@@ -31,7 +31,7 @@
   </ion-card-content>
 
 </div>
-  <div  *ngIf="freightView.isMoreInfo"> 
+  <div  *ngIf="freightView.isMoreInfo">
    <ion-item>
 
     <ion-label>Goods Type</ion-label>
@@ -62,15 +62,14 @@
 
 </div>
 <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='REQUEST'" >
-    <ion-text>{{freightView.freight.estimatedAmount}} 
+    <ion-text>{{freightView.freight.estimatedAmount}}
   </ion-text>
   <ion-text slot="end">INR</ion-text>
 
-  </ion-item> 
+  </ion-item>
   <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='CONFIRM'" color="success">
     <ion-text>Trip fixed for {{freightView.freight.originalAmount}} INR
   </ion-text>
 
-  </ion-item> 
+  </ion-item>
 </ion-card>
- 
