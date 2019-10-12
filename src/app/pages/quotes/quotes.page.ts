@@ -42,6 +42,7 @@ export class QuotesPage implements OnInit {
         this.commandService.customerStatusUsingPOST({taskId:res1.data[0].id,customerStatus:{quotationId:event.quotationId,status:event.response,trackingId:this.freightView.freight.trackingId}}).subscribe(
           (res2:any)=>{
             console.log('sent resonse ',res2);
+
           },err2=>{
             console.log('error senting resonse ',err2);
 
@@ -56,3 +57,4 @@ export class QuotesPage implements OnInit {
 
 
 }
+ 

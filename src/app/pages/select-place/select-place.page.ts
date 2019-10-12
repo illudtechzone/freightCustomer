@@ -108,6 +108,8 @@ selectSearchResult(item: any) {
     
   }
   request(){
+    console.log(' date is  ',this.freightDTO.deliveryDate);
+    if(this.freightDTO.deliveryDate!==undefined){
     this.freightDTO.requestedStatus='REQUEST';
     this.freightDTO.deliveryDate=this.freightDTO.deliveryDate.split("T", 1)[0];
     console.log('splited date is ', this.freightDTO.deliveryDate); 
@@ -122,6 +124,10 @@ selectSearchResult(item: any) {
       this.util.createToast('ops!server might be down try again later');
      this.navCtrl.navigateForward('/home');
 
-    })
+    });
+    }
+    else{
+      this.util.createToast('invalid delivery date');
+    }
   }
 }

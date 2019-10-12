@@ -1,5 +1,8 @@
+import { QueryResourceService } from 'src/app/api/services';
 import { QuotationDTO } from './../../api/models/quotation-dto';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Company } from 'src/app/api/models';
 
 @Component({
   selector: 'app-owner-response',
@@ -9,9 +12,12 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 export class OwnerResponseComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
   @Input("quote") quote:QuotationDTO;
-  constructor() { }
+  company: Observable<Company>;
+  constructor(private queryResource:QueryResourceService) { }
   response:string='pending';
-  ngOnInit() {}
+  ngOnInit() {
+  this.company=  this.queryResource.findCompanyByIdUsingGET(this.quote.companyId)
+  }
   accept(){
     this.response='accept';
     this.valueChange.emit({response:this.response,quotationId:this.quote.id});
@@ -21,5 +27,10 @@ export class OwnerResponseComponent implements OnInit {
     this.valueChange.emit({response:this.response,quotationId:this.quote.id});
 
   }
+
+  
+
+    
+  
 
 }

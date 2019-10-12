@@ -31,28 +31,43 @@ export class HomePage {
         });
   }
 
-  ngOnInit() {
-    this.commonService.getCurrentUser().then((res1:any)=>{
-      console.log('>>>>>>>>>>',res1.id);
-      this.queryResourceService.findAllFreightsByCustomerIdUsingGET({customerId:res1.id})
-      .subscribe((res2:any)=>
-      {
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.freightViews=[];
+    this.findAllFreights();
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+findAllFreights()
+{
+  this.commonService.getCurrentUser().then((res1:any)=>{
+    console.log('>>>>>>>>>>',res1.id);
+    this.queryResourceService.findAllFreightsByCustomerIdUsingGET({customerId:res1.id})
+    .subscribe((res2:any)=>
+    {
 
 
 
-          for (let freight of res2) {
-            let freightView:FreightView=new FreightView();
-            freightView.freight=freight;
-            console.log('  freights ==',freightView);
-             this.freightViews.push(freightView);
-          }
-          console.log('freight vies are ',this.freightViews);
+        for (let freight of res2) {
+          let freightView:FreightView=new FreightView();
+          freightView.freight=freight;
+          console.log('  freights ==',freightView);
+           this.freightViews.push(freightView);
+        }
+        console.log('freight vies are ',this.freightViews);
 
 
-      },err=>{
-        console.log('error geting freights',err);
-      });
+    },err=>{
+      console.log('error geting freights',err);
     });
+  });
+}  
+
+  ngOnInit() {
+    this.findAllFreights();
 
   }
   showQuotes(freightDTO:any){

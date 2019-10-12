@@ -1,6 +1,6 @@
 <ion-card *ngIf="response!=='reject'">
     <ion-card-header text-center>
-      <ion-text  color="tertain"><b>Truckgo</b></ion-text>
+      <ion-text  color="tertain"><b>{{(company|async)?.name}}</b></ion-text>
     </ion-card-header>
 
 <ion-card-content text-center>

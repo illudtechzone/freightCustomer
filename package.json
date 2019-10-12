@@ -27,7 +27,7 @@
     "@ionic/storage": "^2.2.0",
     "angular-oauth2-oidc": "^8.0.4",
     "angular-oauth2-oidc-b2c": "^1.0.26",
-    "cordova-android": "8.0.0",
+    "cordova-android": "^8.1.0",
     "cordova-sqlite-storage": "^3.3.0",
     "core-js": "^2.5.4",
     "keycloak-admin": "^1.12.0",
@@ -78,8 +78,13 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
       "cordova-plugin-ionic-keyboard": {}
-    }
+    },
+    "platforms": [
+      "android"
+    ]
   }
 }
