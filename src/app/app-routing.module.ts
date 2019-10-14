@@ -25,6 +25,7 @@ const routes: Routes = [
   canActivate:[AuthGuardService]
  },
   { path: 'quotes', loadChildren: './pages/quotes/quotes.module#QuotesPageModule',canActivate:[AuthGuardService] },
+  { path: 'pricing', loadChildren: './pages/pricing/pricing.module#PricingPageModule' },
 ];
 
 @NgModule({
