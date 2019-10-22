@@ -7,5 +7,6 @@ export interface VehicleLookUpDTO {
   length?: number;
   maxWeight?: number;
   name?: string;
+  pricingId?: number;
   width?: number;
 }

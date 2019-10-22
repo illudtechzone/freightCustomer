@@ -11,10 +11,10 @@ import { CompanyDTO } from '../models/company-dto';
 import { CustomerDTO } from '../models/customer-dto';
 import { DriverDTO } from '../models/driver-dto';
 import { FreightDTO } from '../models/freight-dto';
+import { QuotationDTO } from '../models/quotation-dto';
 import { VehicleDTO } from '../models/vehicle-dto';
 import { VehicleLookUpDTO } from '../models/vehicle-look-up-dto';
 import { CustomerStatus } from '../models/customer-status';
-import { QuotationDTO } from '../models/quotation-dto';
 
 /**
  * Command Resource
@@ -30,6 +30,7 @@ class CommandResourceService extends __BaseService {
   static readonly createDriverUsingPOSTPath = '/api/command/create/driver';
   static readonly createdriverIfnotExistUsingPOSTPath = '/api/command/create/driver/ifnotexist';
   static readonly createFreightUsingPOSTPath = '/api/command/create/freight';
+  static readonly createQuotationUsingPOSTPath = '/api/command/create/quotation';
   static readonly createVehicleUsingPOSTPath = '/api/command/create/vehicle';
   static readonly createVehicleLookUpUsingPOSTPath = '/api/command/create/vehiclelookup';
   static readonly customerStatusUsingPOSTPath = '/api/command/customer/status/{taskId}';
@@ -41,6 +42,7 @@ class CommandResourceService extends __BaseService {
   static readonly updateFreightUsingPUTPath = '/api/command/update/freight';
   static readonly updateVehicleUsingPUTPath = '/api/command/update/vehicle';
   static readonly updateVehicleLookUpUsingPUTPath = '/api/command/update/vehiclelookup';
+  static readonly assignVehicleUsingPOSTPath = '/api/command/updateFreight/{vehicleId}';
 
   constructor(
     config: __Configuration,
@@ -298,6 +300,42 @@ class CommandResourceService extends __BaseService {
   createFreightUsingPOST(freight: FreightDTO): __Observable<FreightDTO> {
     return this.createFreightUsingPOSTResponse(freight).pipe(
       __map(_r => _r.body as FreightDTO)
+    );
+  }
+
+  /**
+   * @param quotationDTO quotationDTO
+   * @return OK
+   */
+  createQuotationUsingPOSTResponse(quotationDTO: QuotationDTO): __Observable<__StrictHttpResponse<QuotationDTO>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = quotationDTO;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/command/create/quotation`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<QuotationDTO>;
+      })
+    );
+  }
+  /**
+   * @param quotationDTO quotationDTO
+   * @return OK
+   */
+  createQuotationUsingPOST(quotationDTO: QuotationDTO): __Observable<QuotationDTO> {
+    return this.createQuotationUsingPOSTResponse(quotationDTO).pipe(
+      __map(_r => _r.body as QuotationDTO)
     );
   }
 
@@ -717,6 +755,53 @@ class CommandResourceService extends __BaseService {
       __map(_r => _r.body as VehicleLookUpDTO)
     );
   }
+
+  /**
+   * @param params The `CommandResourceService.AssignVehicleUsingPOSTParams` containing the following parameters:
+   *
+   * - `vehicleId`: vehicleId
+   *
+   * - `freightDTO`: freightDTO
+   *
+   * @return OK
+   */
+  assignVehicleUsingPOSTResponse(params: CommandResourceService.AssignVehicleUsingPOSTParams): __Observable<__StrictHttpResponse<FreightDTO>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    __body = params.freightDTO;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/command/updateFreight/${params.vehicleId}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<FreightDTO>;
+      })
+    );
+  }
+  /**
+   * @param params The `CommandResourceService.AssignVehicleUsingPOSTParams` containing the following parameters:
+   *
+   * - `vehicleId`: vehicleId
+   *
+   * - `freightDTO`: freightDTO
+   *
+   * @return OK
+   */
+  assignVehicleUsingPOST(params: CommandResourceService.AssignVehicleUsingPOSTParams): __Observable<FreightDTO> {
+    return this.assignVehicleUsingPOSTResponse(params).pipe(
+      __map(_r => _r.body as FreightDTO)
+    );
+  }
 }
 
 module CommandResourceService {
@@ -767,6 +852,22 @@ module CommandResourceService {
      * response
      */
     response: QuotationDTO;
+  }
+
+  /**
+   * Parameters for assignVehicleUsingPOST
+   */
+  export interface AssignVehicleUsingPOSTParams {
+
+    /**
+     * vehicleId
+     */
+    vehicleId: number;
+
+    /**
+     * freightDTO
+     */
+    freightDTO: FreightDTO;
   }
 }
 

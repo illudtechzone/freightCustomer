@@ -47,9 +47,11 @@ export class LoginPage implements OnInit {
             loader.dismiss();
             console.log('slsklkslkks');
             //writen to get and store the current user in current user for further use
-            this.currentUserService.getCurrentUser(true).then(res=>{});
+            this.currentUserService.getCurrentUser(true).then(res=>{
+              this.navCtrl.navigateForward('/home');
+            });
             this.commandResourceService.createcustomerIfnotExistUsingPOST({customerIdpCode:this.email}).subscribe();
-            this.navCtrl.navigateForward('/home');
+          
           },
           () => {
             loader.dismiss();

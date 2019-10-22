@@ -18,11 +18,11 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
-    {
-      title: 'Pricing',
-      url: '/pricing',
-      icon: 'cash'
-    },
+    // {
+    //   title: 'Pricing',
+    //   url: '/pricing',
+    //   icon: 'cash'
+    // },
     {
       title: 'Logout',
       url: '/',
@@ -61,7 +61,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       // set status bar to white
-      this.statusBar.backgroundColorByHexString('#e6e6e6');
+      this.statusBar.backgroundColorByHexString('#5432c1');
       this.splashScreen.hide();
     });
   }
