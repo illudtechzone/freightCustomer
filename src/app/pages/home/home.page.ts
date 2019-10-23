@@ -44,7 +44,7 @@ export class HomePage {
 findAllFreights()
 {
   this.commonService.getCurrentUser().then((res1:any)=>{
-    console.log('>>>>>>>>>>',res1.id);
+    console.log('>>>>>>>>>>',res1);
     this.queryResourceService.findAllFreightsByCustomerIdUsingGET({customerId:res1.id})
     .subscribe((res2:any)=>
     {

@@ -108,23 +108,32 @@ selectSearchResult(item: any) {
     
   }
   request(){
+
     console.log(' date is  ',this.freightDTO.deliveryDate);
     if(this.freightDTO.deliveryDate!==undefined){
     this.freightDTO.requestedStatus='REQUEST';
     this.freightDTO.deliveryDate=this.freightDTO.deliveryDate.split("T", 1)[0];
     console.log('splited date is ', this.freightDTO.deliveryDate); 
+
+    this.util.createLoader()
+    .then(loader => {
+      loader.present();
     this.commandResourceService.createFreightUsingPOST(this.freightDTO).subscribe((res1:any)=>{
       console.log(' created freight equest ',res1);
+      loader.dismiss();
       this.router.navigate(['/home'],{
         queryParams: res1,
         });
   
     },err=>{
+      loader.dismiss();
+
       console.log('Err creating freight equest ',err);
       this.util.createToast('ops!server might be down try again later');
      this.navCtrl.navigateForward('/home');
 
     });
+  });
     }
     else{
       this.util.createToast('invalid delivery date');

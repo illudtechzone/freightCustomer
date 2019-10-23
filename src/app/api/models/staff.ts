@@ -1,12 +1,11 @@
 /* tslint:disable */
 import { Company } from './company';
-import { DriverDocument } from './driver-document';
-export interface Driver {
+export interface Staff {
   company?: Company;
-  driverDocuments?: Array<DriverDocument>;
-  driverIdpCode?: string;
   email?: string;
   id?: number;
   name?: string;
   phoneNumber?: number;
+  staffIdpCode?: string;
+  type?: string;
 }

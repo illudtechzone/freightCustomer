@@ -13,7 +13,7 @@ export class QuotesPage implements OnInit {
 
   freightView:FreightView={freight:{},isMoreInfo:false,isEdit:false};
 
-  private quotes:QuotationDTO[]=[];
+   quotes:QuotationDTO[]=[];
 
   constructor(private queryResource:QueryResourceService,
     public activatedRoute : ActivatedRoute,
@@ -36,12 +36,14 @@ export class QuotesPage implements OnInit {
   }
   showResponse(event){
     console.log('xxxxx',event);
-      this.queryResource.getTasksUsingGET({processInstanceId:this.freightView.freight.trackingId}).subscribe((res1:any)=>{
+    console.log('dfdfdfxxxxx',this.freightView.freight);
+    this.queryResource.getTasksUsingGET({processInstanceId:this.freightView.freight.trackingId}).subscribe((res1:any)=>{
         console.log(' got task   ',res1.data[0]);
         console.log(' got task id  ',res1.data[0].id);
         this.commandService.customerStatusUsingPOST({taskId:res1.data[0].id,customerStatus:{quotationId:event.quotationId,status:event.response,trackingId:this.freightView.freight.trackingId}}).subscribe(
           (res2:any)=>{
             console.log('sent resonse ',res2);
+            
 
           },err2=>{
             console.log('error senting resonse ',err2);
