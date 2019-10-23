@@ -1,11 +1,13 @@
 <ion-card *ngIf="response!=='reject'">
-    <ion-card-header text-center>
-      <ion-text  color="tertain"><b>{{(company|async)?.name}}</b></ion-text>
-    </ion-card-header>
+    <ion-item lines="full">  
+          <ion-text slot="start" color="tertain"><b>{{(company|async)?.name}}</b></ion-text>
+          <ion-text slot="end">Budget is {{quote.amount}} INR</ion-text>
 
-<ion-card-content text-center>
-  <ion-text >Budget is {{quote.amount}} INR</ion-text>
-</ion-card-content>
+     </ion-item>
+     
+
+
+
 
     
    <ion-item *ngIf="response==='pending'" >
