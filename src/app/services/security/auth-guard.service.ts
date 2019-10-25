@@ -10,7 +10,9 @@ export class AuthGuardService implements CanActivate {
 
   constructor(private oauthService: OAuthService,
               private router: Router,
-              private navController: NavController) { }
+              private navController: NavController) {
+                console.log('tertertr');
+               }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log(' acess token ',this.oauthService.hasValidAccessToken());
     if (this.oauthService.hasValidAccessToken()) {

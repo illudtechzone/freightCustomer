@@ -6,6 +6,8 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { KeycloakAdminClient } from 'keycloak-admin/lib/client';
 import { UtilService } from 'src/app/services/util.service';
+import { Command } from 'selenium-webdriver';
+import { CommandResourceService } from 'src/app/api/services';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './signup.page.html',
@@ -17,7 +19,7 @@ export class SignUpPage implements OnInit {
   username: string;
   password: string;
   email: string;
-  phone: string;
+  phone: number;
   confirm: string;
 
   ngOnInit(): void {
@@ -25,7 +27,8 @@ export class SignUpPage implements OnInit {
   }
 
   constructor(private navCtrl: NavController, private util: UtilService,
-              private keycloakService: KeycloakService,) {
+              private keycloakService: KeycloakService,
+              private commandService:CommandResourceService) {
 
   }
   signup() {
@@ -39,7 +42,6 @@ export class SignUpPage implements OnInit {
           (res) => {
             loader.dismiss();
             this.createRider();
-            this.navCtrl.navigateForward('/login');
           },
           (err) => {
             loader.dismiss();
@@ -57,23 +59,29 @@ export class SignUpPage implements OnInit {
 
 
   createRider() {
-
+    this.util.createLoader()
+    .then(loader => {
+      loader.present();
     this.keycloakService.authenticate({ username: this.email, password: this.password },
       () => {
         console.log('user data ', this.email);
-        // tslint:disable-next-line: max-line-length
-        // this.commandResourceService.createRiderIfNotExistUsingPOST({idpcode: this.username, firstName: this.firstName, mobilenumber: this.phone,email:this.email}).subscribe(res => {
-        //   console.log('created user in microservice ', res);
-        //   this.keycloakService.logout();
-        //   this.navCtrl.navigateForward('/login');
-        // },
-        // err => {
-        //   console.log('created user in microservice ', err);
-        // });
+      
+        this.commandService.createcustomerIfnotExistUsingPOST({customerIdpCode: this.email, name: this.firstName,phoneNumber: this.phone,email:this.email}).subscribe(res => {
+          console.log('created user in microservice ', res);
+          this.keycloakService.logout();
+          loader.dismiss();
+          this.navCtrl.navigateForward('/login');
+        },
+        err => {
+          loader.dismiss();
+          console.log('created user in microservice ', err);
+        });
       },
       () => {
+        loader.dismiss();
         this.util.createToast('an error occured');
       });
+    });
   }
 
   validateEmail() {

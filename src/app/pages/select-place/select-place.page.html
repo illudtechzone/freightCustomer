@@ -44,8 +44,8 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder=" Rough goods weight in kg ex:1000" [(ngModel)]="freightDTO.weight" ></ion-input>
-        <ion-text slot="end">Ton</ion-text>
+        <ion-input type="text" placeholder=" Freight weight " [(ngModel)]="freightDTO.weight" ></ion-input>
+        <ion-text slot="end" type="number">Ton</ion-text>
 
       </ion-item>
     
@@ -71,7 +71,7 @@
       <ion-item>
        
         <ion-text slot="start"> INR</ion-text>
-        <ion-input  type="number" required="true" [(ngModel)]="freightDTO.estimatedAmount"  placeholder=" Ruogh budget in numbers ex:1999 ">
+        <ion-input  type="number" required="true" [(ngModel)]="freightDTO.estimatedAmount"  placeholder="Budget">
         </ion-input>
       </ion-item>
     </ion-card>
