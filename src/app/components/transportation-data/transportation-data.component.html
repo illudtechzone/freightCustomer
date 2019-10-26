@@ -1,7 +1,7 @@
 
-<ion-card *ngIf="freightView.freight.id">
+<ion-card *ngIf="freightView.freight.id" (click)="moreInfo()">
 
-  <ion-item *ngIf="freightView.freight.requestedStatus=='REQUEST'" color="warning-shade">
+  <ion-item *ngIf="freightView.freight.requestedStatus=='REQUEST'" color="warning">
 
 
     <ion-text slot="start">Status:</ion-text>
@@ -16,7 +16,7 @@
     <ion-text slot="end" ><i>Confirmed</i></ion-text>
 
   </ion-item>
-  <div (click)="moreInfo()">
+  <div  *ngIf="freightView.isMoreInfo">
   <ion-card-header style="border-top: 3px solid #5855b1;">
     <ion-text color="primary"><b><I>Pickup</I></b></ion-text>
   </ion-card-header>
@@ -39,16 +39,15 @@
     </ion-text>
   </ion-card-content>
 
-</div>
-  <div  *ngIf="freightView.isMoreInfo">
+
    <ion-item>
 
     <ion-label>Goods Type</ion-label>
     <ion-text slot="end" >Wood</ion-text>
   </ion-item>
   <ion-item>
-    <ion-input type="text" placeholder=" Ruogh goods weight in kg ex:1000" readonly="!freightView.isEdit" [(ngModel)]="freightView.freight.weight" ></ion-input>
-    <ion-text slot="end">kg</ion-text>
+    <ion-text slot="end" type >{{freightView.freight.weight}}</ion-text>
+    <ion-text slot="start">Ton</ion-text>
 
   </ion-item>
 
@@ -70,14 +69,14 @@
 
 
 </div>
-<ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='REQUEST'" >
-    <ion-text>{{freightView.freight.estimatedAmount}}
+<ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='REQUEST'"   >
+    <ion-text slot="end">{{freightView.freight.estimatedAmount}}
   </ion-text>
-  <ion-text slot="end">INR</ion-text>
+  <ion-text slot="start">INR</ion-text>
 
-  </ion-item>
-  <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='CONFIRM'" >
-    <ion-text>Trip fixed for {{freightView.freight.originalAmount}} INR
+  </ion-item  >
+  <ion-item line="full"  *ngIf="freightView.freight.requestedStatus=='CONFIRM'"  >
+    <ion-text>Trip fixed for INR {{freightView.freight.originalAmount}} 
   </ion-text>
 
   </ion-item>

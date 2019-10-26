@@ -12,7 +12,7 @@ import { JhiWebSocketService } from 'src/app/services/jhi-web-socket.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  segmentName:string='requested';
   freightViews:FreightView[]=[];
   constructor(private queryResourceService:QueryResourceService,
     private commonService:CommonService,
@@ -75,6 +75,12 @@ findAllFreights()
       queryParams: freightDTO,
       });
 
+  }
+
+  segmentChanged(event){
+
+console.log('segment event is ',event.detail.value);
+this.segmentName=event.detail.value;
   }
 
 }
