@@ -28,7 +28,7 @@ export class CommonService {
       console.log('got user ',res1);
       console.log('idp code is ',res1.email);
       if (this.customer == null){
-      this.queryService.searchCustomerIDPCodeUsingGET(res1.email).subscribe((res2:any)=>{
+      this.queryService.searchCustomerIDPCodeUsingGET(res1.email).subscribe(res2=>{
         console.log('got userDetail ',res2);
           resolve(res2);
       },err=>{

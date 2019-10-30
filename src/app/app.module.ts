@@ -15,6 +15,7 @@ import { UtilService } from './services/util.service';
 import { KeycloakAdminConfig } from './configs/keycloak.admin.config';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigsModule } from './configs/configs.module';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { ConfigsModule } from './configs/configs.module';
       multi: true
     },
     UtilService,
+    LocalNotifications,
     KeycloakAdminConfig,
     StatusBar,
     SplashScreen,

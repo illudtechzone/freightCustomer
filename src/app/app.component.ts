@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { CommonService } from './services/common.service';
+import { JhiWebSocketService } from './services/jhi-web-socket.service';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,8 @@ export class AppComponent {
     private oauthService: OAuthService,
     private toastController: ToastController,
     private navCtrl: NavController,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private notification: JhiWebSocketService
   ) {
     this.initializeApp();
   }
@@ -46,7 +48,9 @@ export class AppComponent {
     this.oauthService.logOut();
     this.presentToastLogout();
     this.commonService.clearCustomer();
+    this.notification.disconnect();
     this.navCtrl.navigateRoot('/login');
+
   }
     async presentToastLogout() {
     const toast = await this.toastController.create({

@@ -22,7 +22,7 @@
     <div>
     <app-transportation-data [freightView]=freightView></app-transportation-data>
     <ion-card *ngIf="freightView.freight.requestedStatus=='REQUEST'">
-    <ion-item *ngIf="(freightView.freight.id|qtlist|async) as list" (click)="showQuotes(freightView.freight)"  >
+    <ion-item *ngIf="(freightView.freight.id|qtlist:data|async) as list" (click)="showQuotes(freightView.freight)"  >
 
       <ion-text>Quotes</ion-text>
 

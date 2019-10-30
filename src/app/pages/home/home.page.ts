@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavParams } from '@ionic/angular';
 import { JhiWebSocketService } from 'src/app/services/jhi-web-socket.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { QuotationDTO } from 'src/app/api/models';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +16,12 @@ import { JhiWebSocketService } from 'src/app/services/jhi-web-socket.service';
 export class HomePage {
 
   freightViews:FreightView[]=[];
+  data:any=null;
+
   constructor(private queryResourceService:QueryResourceService,
     private commonService:CommonService,
     public activatedRoute : ActivatedRoute,
-    private router:Router,private notification: JhiWebSocketService) {
+    private router:Router,private notification: JhiWebSocketService,private localNotification: LocalNotifications) {
       this.activatedRoute.queryParams.subscribe((res)=>{
         console.log('got nav params ',res);
         if(res.pickupAddress!== undefined){
@@ -44,13 +48,18 @@ export class HomePage {
 findAllFreights()
 {
   this.commonService.getCurrentUser().then((res1:any)=>{
-    console.log('>>>>>>>>>>',res1);
+    console.log('>>>>>>>>>>',res1.customerIdpCode);
+    this.notification.connect(res1.customerIdpCode);
+    this.notification.subscribe();
+    this.notification.receive().subscribe(data=>
+      {
+        console.log("new data::::: :: ::::::::::::::::::"+JSON.stringify(data.body));
+        this.data=data;
+        this.single_notification(this.data.body);
+      });
     this.queryResourceService.findAllFreightsByCustomerIdUsingGET({customerId:res1.id})
     .subscribe((res2:any)=>
     {
-
-
-
         for (let freight of res2) {
           let freightView:FreightView=new FreightView();
           freightView.freight=freight;
@@ -65,9 +74,33 @@ findAllFreights()
     });
   });
 }  
+single_notification(qdto) {
+  
+  this.localNotification.schedule({
+    id: 1,
+    text: 'New Quotation ',
+    data:qdto
+  });
+  this.localNotification.on("click").subscribe(x=>{
+    console.log("on cliccccccccccccccccccccccccckkkkkkkkkk"+JSON.stringify(x));
+    this.redirectQuotation(x.data);
+  
+  });
+}
+redirectQuotation(qdto:QuotationDTO)
+{
+ const fw: FreightView[]=this.freightViews.filter(view=>
+    {
+  view.freight.id=qdto.freightId;
+    });
+    console.log(this.freightViews.length+"filtered value"+JSON.stringify(fw));
+    this.showQuotes(JSON.stringify(fw[0].freight));
+}
+
 
   ngOnInit() {
     this.findAllFreights();
+
 
   }
   showQuotes(freightDTO:any){

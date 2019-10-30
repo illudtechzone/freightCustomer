@@ -12,8 +12,8 @@ export class QuotationPipe implements PipeTransform {
 
   }
 
-  transform(id: any):  Observable<Quotation[]> {
-
+  transform(id: any,...args: any[]):  Observable<Quotation[]> {
+console.log("Argueeee value :+++++++++++++++++++::::::::"+args);
     return  this.queryResource.findAllQuotationsUsingGET({freightId:id});
   }
 }
