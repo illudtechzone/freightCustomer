@@ -14,7 +14,7 @@ import { QuotationDTO } from 'src/app/api/models';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  segmentName:string='requested';
   freightViews:FreightView[]=[];
   data:any=null;
 
@@ -108,6 +108,12 @@ redirectQuotation(qdto:QuotationDTO)
       queryParams: freightDTO,
       });
 
+  }
+
+  segmentChanged(event){
+
+console.log('segment event is ',event.detail.value);
+this.segmentName=event.detail.value;
   }
 
 }

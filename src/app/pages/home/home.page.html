@@ -7,9 +7,18 @@
      User Home
     </ion-title>
   </ion-toolbar>
+  <ion-segment (ionChange)="segmentChanged($event)" >
+      <ion-segment-button value="requested" checked="true">
+        <ion-label>requested</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="accepted">
+        <ion-label>accepted</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 </ion-header>
 
 <ion-content>
+    
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
           pullingIcon="arrow-dropdown"
@@ -19,7 +28,7 @@
         </ion-refresher-content>
       </ion-refresher>
   <ion-list lines="none" *ngFor="let freightView of freightViews" >
-    <div>
+    <div *ngIf="freightView.freight.requestedStatus=='REQUEST' && segmentName==='requested' || freightView.freight.requestedStatus=='CONFIRM' && segmentName==='accepted'">
     <app-transportation-data [freightView]=freightView></app-transportation-data>
     <ion-card *ngIf="freightView.freight.requestedStatus=='REQUEST'">
     <ion-item *ngIf="(freightView.freight.id|qtlist:data|async) as list" (click)="showQuotes(freightView.freight)"  >
@@ -33,9 +42,7 @@
 
     </ion-item>
   </ion-card>
-  <ion-card>
-
-  </ion-card>
+ 
 </div>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed"   [routerLink]="['/select-place']">
