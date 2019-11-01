@@ -1,7 +1,7 @@
 <ion-card *ngIf="response!=='reject'">
     <ion-item lines="full">  
-          <ion-text slot="start" color="tertain"><b>{{(company|async)?.name}}</b></ion-text>
-          <ion-text slot="end">Budget is {{quote.amount}} INR</ion-text>
+          <ion-text slot="start" color="tertain">{{(company|async)?.name|uppercase}}</ion-text>
+          <ion-text slot="end">{{quote.amount}} INR</ion-text>
 
      </ion-item>
      
@@ -15,8 +15,8 @@
     
       <ion-button slot="end" color="danger" (click)="reject()" expand="block">Reject</ion-button>
   </ion-item>
-  <ion-card-content text-center *ngIf="response==='accept'">
-    <ion-text  color="dark"><b>Deal fixed driver manu contact you</b></ion-text>
+  <ion-card-content text-center *ngIf="response==='accept'" >
+    <ion-text  color="dark"><b>Accepted Quote</b></ion-text>
   </ion-card-content>
   </ion-card>
   

@@ -7,7 +7,7 @@ export const authConfig: AuthConfig = {
     redirectUri: window.location.origin,
     clientId: 'account',
     scope: 'openid profile email',
-    dummyClientSecret: '861f1081-2b85-48a9-82eb-62b38a31be64',
+    dummyClientSecret: 'e874d630-fc99-4c4c-aa48-10173b69df83',
     tokenEndpoint: 'http://dev.servers.divisosofttech.com:8888/auth/realms/freight/protocol/openid-connect/token',
     userinfoEndpoint: 'http://dev.servers.divisosofttech.com:8888/auth/realms/freight/protocol/openid-connect/userinfo',
     oidc: false,

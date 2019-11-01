@@ -3,7 +3,8 @@ import { UtilService } from './util.service';
 import { CurrentUserService } from './current-user.service';
 import { Injectable } from '@angular/core';
 import { Route } from '../dtos/route';
-import { QueryResourceService } from '../api/services';
+import { QueryResourceService, AccountResourceService } from '../api/services';
+import { Customer, UserDTO } from '../api/models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,10 @@ import { QueryResourceService } from '../api/services';
 export class CommonService {
   route:Route=new Route();
   constructor(private currentUserService:CurrentUserService,
-    private queryService:QueryResourceService,
+    private queryService:QueryResourceService,private accountResource: AccountResourceService,
     private util:UtilService) { };
-    private customer:any;
+    customer: CustomerDTO = null;
+  user: UserDTO=null;
   setRoute(route:Route){
     this.route=route;
   }
@@ -21,32 +23,24 @@ export class CommonService {
     return this.route;
   }
 
-  getCurrentUser():Promise<any>{
-    return new Promise((resolve, reject) => {
-    this.currentUserService.getCurrentUser(false).then((res1:any)=>{
+  async getCurrentUser(){
+    if (!(this.customer == null)) {
+      console.log('company is found');
+      return this.customer;
+    } else {
+      console.log('company is not found found');
+      this.user = await this.accountResource.getAccountUsingGET().toPromise();
+      this.customer = await this.queryService.searchCustomerIDPCodeUsingGET(this.user.login).toPromise();
+      return this.customer;
 
-      console.log('got user ',res1);
-      console.log('idp code is ',res1.email);
-      if (this.customer == null){
-      this.queryService.searchCustomerIDPCodeUsingGET(res1.email).subscribe(res2=>{
-        console.log('got userDetail ',res2);
-          resolve(res2);
-      },err=>{
-
-        reject();
-        this.util.createToast('ops! server might be down try again later');
-      });
-    }
-    else{
-      resolve(this.customer);
-    }
-
-    });
-
-  });
+}
+    
   }
+
+
   clearCustomer()
   {
     this.customer=null;
+    this.user=null;
   }
 }

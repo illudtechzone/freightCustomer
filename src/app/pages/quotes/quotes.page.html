@@ -17,7 +17,15 @@
       Availabe Quotes
     </b> </ion-text>
   </div>
-  <ion-list *ngFor="let quote of quotes" >
-  <app-owner-response (valueChange)='showResponse($event)' [quote]="quote"></app-owner-response>
+  <ion-list  lines="full">
+    <ion-card> <ion-item>
+        <ion-text slot="start" color="tertain"><b>Company</b></ion-text>
+         <ion-text slot="end" color="tertain"><b>Budget</b></ion-text> 
+        </ion-item>
+      </ion-card> 
+  <app-owner-response *ngFor="let quote of quotes" (valueChange)='showResponse($event)' [quote]="quote"></app-owner-response>
 </ion-list>
+
+
+  
 </ion-content>

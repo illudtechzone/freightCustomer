@@ -17,7 +17,7 @@ export class HomePage {
   segmentName:string='requested';
   freightViews:FreightView[]=[];
   data:any=null;
-
+dto: QuotationDTO={"amount":3000,"companyId":7,"deliveryDate":"2019-11-01","freightId":11,"id":13,"vehicleId":null};
   constructor(private queryResourceService:QueryResourceService,
     private commonService:CommonService,
     public activatedRoute : ActivatedRoute,
@@ -53,7 +53,7 @@ findAllFreights()
     this.notification.subscribe();
     this.notification.receive().subscribe(data=>
       {
-        console.log("new data::::: :: ::::::::::::::::::"+JSON.stringify(data.body));
+        
         this.data=data;
         this.single_notification(this.data.body);
       });
@@ -67,6 +67,7 @@ findAllFreights()
            this.freightViews.push(freightView);
         }
         console.log('freight vies are ',this.freightViews);
+        this.redirectQuotation(this.dto);
 
 
     },err=>{
@@ -82,18 +83,14 @@ single_notification(qdto) {
     data:qdto
   });
   this.localNotification.on("click").subscribe(x=>{
-    console.log("on cliccccccccccccccccccccccccckkkkkkkkkk"+JSON.stringify(x));
+    
     this.redirectQuotation(x.data);
   
   });
 }
 redirectQuotation(qdto:QuotationDTO)
 {
- const fw: FreightView[]=this.freightViews.filter(view=>
-    {
-  view.freight.id=qdto.freightId;
-    });
-    console.log(this.freightViews.length+"filtered value"+JSON.stringify(fw));
+ let fw=this.freightViews.find(view=>  view.freight.id===qdto.freightId );
     this.showQuotes(JSON.stringify(fw[0].freight));
 }
 

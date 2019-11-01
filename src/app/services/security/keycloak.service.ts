@@ -72,7 +72,7 @@ export class KeycloakService {
       this.keycloakAdmin.users.update(
         {
           id: keycloakUser.sub,
-          realm: 'RedAlert'
+          realm: 'freight'
         },
         {
           firstName: keycloakUser.name.split(' ')[0],
@@ -97,7 +97,7 @@ export class KeycloakService {
         this.keycloakAdmin = this.keycloakConfig.kcAdminClient;
         this.keycloakAdmin.users.resetPassword(
           {
-            realm: 'RedAlert',
+            realm: 'freight',
             id: user.sub,
             credential: {
               temporary: false,
